@@ -11,6 +11,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 ALLOWED_HOSTS = []
 
+APPEND_SLASH = False
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -59,10 +60,16 @@ WSGI_APPLICATION = 'emr_system.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv('DB_ENGINE', default='django.db.backends.postgresql'),
+        'NAME': os.getenv('DB_NAME', default='postgres'),
+        'USER': os.getenv('DB_USER', default='postgres'),
+        'PASSWORD': os.getenv('DB_PASSWORD', default='postgres'),
+        'HOST': os.getenv('DB_HOST', default='localhost'),
+        'PORT': os.getenv('DB_PORT', default='5432')
     }
 }
+
+AUTH_USER_MODEL = 'api.CustomUser'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -95,6 +102,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'EXCEPTION_HANDLER': 'api.exceptions.custom_exception_handler',
 }
 
 SIMPLE_JWT = {
