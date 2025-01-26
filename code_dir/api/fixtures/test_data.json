@@ -1,0 +1,49 @@
+[
+    {
+      "model": "api.patient",
+      "pk": 1,
+      "fields": {
+        "date_of_birth": "2000-01-01",
+        "diagnoses": ["flu", "cold"],
+        "created_at": "2025-01-26T14:35:00Z"
+      }
+    },
+    {
+      "model": "api.patient",
+      "pk": 2,
+      "fields": {
+        "date_of_birth": "1995-05-15",
+        "diagnoses": ["stomach ache", "fever"],
+        "created_at": "2025-01-26T14:35:00Z"
+      }
+    },
+    {
+      "model": "api.patient",
+      "pk": 3,
+      "fields": {
+        "date_of_birth": "1987-07-30",
+        "diagnoses": ["headache", "nausea"],
+        "created_at": "2025-01-26T14:35:00Z"
+      }
+    },
+    {
+      "model": "api.patient",
+      "pk": 4,
+      "fields": {
+        "date_of_birth": "1990-12-25",
+        "diagnoses": ["back pain", "fatigue"],
+        "created_at": "2025-01-26T14:35:00Z"
+      }
+    },
+    {
+      "model": "api.patient",
+      "pk": 5,
+      "fields": {
+        "date_of_birth": "2002-03-10",
+        "diagnoses": ["cough", "sore throat"],
+        "created_at": "2025-01-26T14:35:00Z"
+      }
+    }
+  ]
+  
+  
