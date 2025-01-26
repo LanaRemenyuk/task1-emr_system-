@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile 
+    container_name: app
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "
+        poetry run python code_dir/manage.py migrate &&
+        poetry run python code_dir/manage.py shell -c \"
+          from django.contrib.auth import get_user_model;
+          User = get_user_model();
+          User.objects.create_superuser('admin', 'admin@example.com', 'admin12adm', role='admin');
+          User.objects.create_user('doctor', 'doctor@example.com', 'doctor12pass', role='doctor')
+        \" &&
+        poetry run python code_dir/manage.py loaddata code_dir/api/fixtures/test_data.json &&
+        poetry run python code_dir/manage.py runserver 0.0.0.0:8000
+      "
+    depends_on:
+      - db
+    env_file:
+      - /.env
+    environment:
+      - POSTGRES_URL=${DB_URL}
+      - POSTGRES_HOST=${DB_HOST}
+      - POSTGRES_USERNAME=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_PORT=${DB_PORT}
+      - POSTGRES_DB=${DB_NAME}
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
