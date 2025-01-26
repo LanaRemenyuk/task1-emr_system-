@@ -13,11 +13,9 @@ djangorestframework-simplejwt = "^5.4.0"
 python-dotenv = "^1.0.1"
 psycopg2 = "^2.9.10"
 drf-yasg = "^1.21.8"
+pytest-cov = "^6.0.0"
+coverage = "^7.6.10"
 
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3.4"
-pytest-django = "^4.9.0"
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
 
 
 class CustomUser(AbstractUser):
@@ -14,13 +14,16 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+    class Meta:
+        app_label = 'api'
 
 
 class Patient(models.Model):
     """Model for storing patient info."""
 
     date_of_birth = models.DateField()
-    diagnoses = models.JSONField()
+    diagnoses = models.JSONField(default=list, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

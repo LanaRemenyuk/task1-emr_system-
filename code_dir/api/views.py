@@ -1,9 +1,8 @@
-from rest_framework import generics, permissions, status
-from rest_framework.response import Response
-from rest_framework.exceptions import PermissionDenied
+from rest_framework import generics, permissions
+
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Patient
-from .permissions import IsDoctor
+from .permissions import IsAdminOrDoctor
 from .serializers import PatientSerializer, CustomTokenObtainPairSerializer
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -13,7 +12,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 class PatientListView(generics.ListAPIView):
     serializer_class = PatientSerializer
-    permission_classes = [permissions.IsAuthenticated, IsDoctor]
+    permission_classes = [permissions.IsAuthenticated, IsAdminOrDoctor]
 
     def get_queryset(self):
         return Patient.objects.all()
