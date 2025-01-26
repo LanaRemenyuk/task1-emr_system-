@@ -1,12 +1,14 @@
 from rest_framework import generics, permissions
-
 from rest_framework_simplejwt.views import TokenObtainPairView
+
 from .models import Patient
 from .permissions import IsAdminOrDoctor
-from .serializers import PatientSerializer, CustomTokenObtainPairSerializer
+from .serializers import CustomTokenObtainPairSerializer, PatientSerializer
+
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     """Custom view for obtaining JWT tokens (login endpoint)."""
+
     serializer_class = CustomTokenObtainPairSerializer
 
 

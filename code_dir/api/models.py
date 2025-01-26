@@ -1,22 +1,24 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.contrib.auth.models import AbstractUser, Group, Permission
 
 
 class CustomUser(AbstractUser):
     """Custom user model with additional roles."""
 
     ROLE_CHOICES = (
-        ('doctor', 'Doctor'),
-        ('patient', 'Patient'),
-        ('admin', 'Admin'),
+        ("doctor", "Doctor"),
+        ("patient", "Patient"),
+        ("admin", "Admin"),
     )
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='patient')
+    role = models.CharField(
+        max_length=10, choices=ROLE_CHOICES, default="patient"
+    )
 
     def __str__(self):
         return self.username
-    
+
     class Meta:
-        app_label = 'api'
+        app_label = "api"
 
 
 class Patient(models.Model):
@@ -27,4 +29,4 @@ class Patient(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Patient {self.id} - {self.diagnoses}'
+        return f"Patient {self.id} - {self.diagnoses}"
